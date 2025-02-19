@@ -104,13 +104,60 @@ df1=pd.DataFrame({
 })
 df1.head (10)
 ```
+Se obtiene la siguiente tabla donde se tomaron valores de 0 a 9 para *n* debido al rango estipulado inicialmente para cada función.
+
+|     | X1 (n/fs)| X2 (n/fs)|
+|:-------:|:-----------------:|:----------:|
+|    0    |      1.000000e+00  |   0.000000e+00   |        
+|    1    | 7.071068e-01      |     7.071068e-01   |        
+|      2  |     6.123234e-17	   |   1.000000e+00     |        
+|     3   |      -7.071068e-01	   |     7.071068e-01   |        
+|      4  |  -1.000000e+00      |      1.224647e-16  |         
+|       5 |  -7.071068e-01       |   -7.071068e-01     |        
+|        6|     -1.836970e-16	   |   -1.000000e+00     |        
+|       7 |   7.071068e-01      |  -7.071068e-01      |        
+|       8 |   1.000000e+00	     |   -2.449294e-16     |       
+|       9|  7.071068e-01      |      7.071068e-01  |         
+
+Apartir de esta tabla, se grafica las funciones de la siguiente forma: 
+
+```python
+fig, ax = plt.subplots(1, 1, figsize=(6,4)) # se crea la figura y los ejes
+ax.scatter(x=df1['X1(n/fs)'], y=df1['X2(n/fs)'], alpha= 0.8) # genera un grafico de dispersion con los datos de df1
+ax.set_xlabel('X1') 
+ax.set_ylabel('X2');
+```
+Dando como resultado lo siguiente: 
+
+![grafica de x1 vs x2](grafica_x1_x2.png)
+<br><em>Figura 6: Gráfica de dispersión de x1 vs x2 </em></p>
+
+A continuación se calcula la correlacion entre las señales x1 y x2 de la siguiente forma:
+```python
+correlacion=df1.corr()
+correlacion
+#pearson 
+```
+Obteniedno como resultado:
+|     | X1 (n/fs)| X2 (n/fs)|
+|:-------:|:-----------------:|:----------:|
+|    X1 (n/fs)  |     1.000000  |   0.078783  |        
+|    X2 (n/fs) |0.078783     |     1.000000  |   
 
 
+Para tener una mejor visualizacion sobre los resultados de la correlacion, se hizo el siguiente diagrama de la siguiente forma:
 
+  ```python
+# Crear el heatmap
+plt.figure(figsize=(6, 3))
+sns.heatmap(correlacion, annot=True, cmap="coolwarm")
 
+# Mostrar gráfico
+plt.show()
+```
+![correlación](correlacion.png)
+<br><em>Figura 7: Heatmap que permite observar la correlacion entre x1 y x2 </em></p>
 
-
-
-
+Este diagrama nos permite visualizar con mayor facilidad la relación entre x1 y x2, por lo que se puede observar que X1(n/fs) con X1(n/fs) es igual a 1  lo que quiere decir que cada variable tiene correlación perfecta consigo misma. Esto también pasa en la correlación X2(n/fs) con X2(n/fs). En cuanto a X1(n/fs) con X2(n/fs) se obtiene un resultado de 0.079 lo que muestra que la correlacion es muy minima, casi nula, esto tiene sentido debido a que cos(x) y sin(x) estan desfasados yno siguen una relacion lineal clara.
 
 
