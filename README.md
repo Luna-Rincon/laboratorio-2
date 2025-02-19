@@ -84,3 +84,33 @@ plt.show()
 ```
 ![conv  isa](https://github.com/user-attachments/assets/6fddde56-58a3-47eb-8f07-ba0ac17f905a)
 <br><em>Figura 6: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 3.</em></p>
+
+### Parte B.
+Se debe encontrar la correlación entre \( X_1[nT_s] = \cos(2\pi 100 n T_s) \) y 
+\( X_2[nT_s] = \sin(2\pi 100 n T_s) \). Luego se debe encontrar la representación gráfica y secuencial.
+
+Primero se almacena los valores en un DataFrame de la siguiente forma:
+```python
+fs=1/1.25e-3 # se define la frecuencia de muestreo
+n=np.arange(0,10) # almacena valores entre 0 y 9
+t= n/fs #conversión a tiempo real (t) donde se divide a n por la frecuencia de muestreo
+
+x1=np.cos((2* np.pi*100*t))
+x2=np.sin((2* np.pi*100*t))
+
+df1=pd.DataFrame({
+    'X1(n/fs)':x1,
+    'X2(n/fs)':x2,
+})
+df1.head (10)
+```
+
+
+
+
+
+
+
+
+
+
