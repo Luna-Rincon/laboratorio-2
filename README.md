@@ -86,8 +86,7 @@ plt.show()
 <br><em>Figura 6: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 3.</em></p>
 
 ### Parte B.
-Se debe encontrar la correlación entre \( X_1[nT_s] = \cos(2\pi 100 n T_s) \) y 
-\( X_2[nT_s] = \sin(2\pi 100 n T_s) \). Luego se debe encontrar la representación gráfica y secuencial.
+Se debe encontrar la correlación entre $X_1[nT_s] = \cos(2\pi 100 n T_s)$ y $X_2[nT_s] = \sin(2\pi 100 n T_s)$. Luego se debe encontrar la representación gráfica y secuencial.
 
 Primero se almacena los valores en un DataFrame de la siguiente forma:
 ```python
