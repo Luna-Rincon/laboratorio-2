@@ -360,16 +360,15 @@ plt.legend(fontsize=12)
 plt.show()
 
 ```
-Para calcular la densidad espectral de potencia (PSD) en este caso usamos la función de Welch para calcularla de manera más precisa y con menos ruido que el método clásico de la transformada de Fourier. Se encuentra en la librería scipy.signal [4] La estimación de PSD con Welch se basa en dividir la señal en segmentos solapados, calcular la FFT de cada segmento y luego promediar los espectros de potencia de cada uno. Este proceso reduce la varianza de la estimación y proporciona una representación más suave y confiable. [5]
+La densidad espectral de potencia (PSD) se calcula utilizando el método de Welch, el cual permite obtener una estimación más precisa y con menor ruido en comparación con el enfoque tradicional basado en la transformada de Fourier. Para ello, se emplea la función welch con la librería scipy.signal [4]. Este método consiste en dividir la señal en segmentos superpuestos, aplicar la transformada rápida de Fourier (FFT) a cada segmento y luego promediar los espectros de potencia obtenidos. Al reducir la variación de la estimación, este proceso proporciona una representación más suave.
 
-  
 <p align="center">
     <img src="densidad_espectral.png" 
          alt="Densidad espectral de energia" width="800">
     <br><em>Figura 9: Densidad Espectral de Energia.</em>
 </p>
 
-De la figura anterior, correspondiente a la densidad espectral de energía observamos e inferimos que la mayor parte de la energía en la señal de ECG está en bajas frecuencias, lo cual es esperado (<50 Hz). Se observan picos menores a 10 Hz, posiblemente correspondientes a los ciclos del ECG (onda P, complejo QRS y onda T). A partir de 50 Hz, la energía cae abruptamente, lo que sugiere que el filtrado eliminó el ruido de la red eléctrica. No hay actividad relevante por encima de 100 Hz, coherente con el rango típico del ECG (0.05 - 100 Hz).
+De la figura anterior, correspondiente a la densidad espectral de energía observamos e inferimos que la mayor parte de la energía en la señal de ECG está en bajas frecuencias, lo cual es esperado (<50 Hz). lo cual es normal, ya que la actividad eléctrica del corazón ocurre en este rango. Se observan picos menores a 10 Hz, posiblemente correspondientes a los ciclos del ECG (onda P, complejo QRS y onda T). A partir de 50 Hz, la energía disminuye rápidamente, lo que indica que se aplicó un filtro para eliminar el ruido de la red eléctrica (que suele estar en 50 o 60 Hz). Además, no hay actividad significativa por encima de 100 Hz, lo que es consistente con el rango típico de frecuencias del ECG (0,05 - 100 Hz).
 
 <p align="center">
     <img src="densidad_es_potencia.png" 
@@ -377,12 +376,15 @@ De la figura anterior, correspondiente a la densidad espectral de energía obser
     <br><em>Figura 10: Densidad Espectral de Potencia.</em>
 </p>
 
-La potencia se concentra en bajas frecuencias y disminuye progresivamente. Hay una pendiente descendente clara hasta 50 Hz, lo que indica que la mayor parte de la energía está en frecuencias fisiológicamente relevantes. Después de 50 Hz, la densidad espectral de potencia es mucho menor, lo que sugiere que el filtrado ha reducido interferencias en altas frecuencias. No se observan picos fuertes en 50-60 Hz, lo que indica que el ruido de la red eléctrica ha sido mitigado.
+La potencia de la señal ECG se concentra en bajas frecuencias y disminuye progresivamente. Se observa una pendiente descendente clara hasta 50 Hz, lo que indica que la mayor parte de la energía se encuentra en frecuencias fisiológicamente relevantes, asociadas con las distintas ondas del ECG, como la onda P, el complejo QRS y la onda T.  
+
+A partir de 50 Hz, la densidad espectral de potencia es mucho menor, lo que sugiere que el filtrado ha reducido interferencias en altas frecuencias. Además, no se observan picos fuertes en el rango de 50-60 Hz, lo que confirma que el ruido de la red eléctrica ha sido mitigado de manera efectiva. Más allá de 100 Hz, la energía es prácticamente despreciable, lo que indica que el ECG ha sido correctamente procesado y no hay información relevante en estas frecuencias.
 
 <p align="center">
     <img src="histograma_f.png" alt="Histograma de Frecuencia" width="800">
     <br><em>Figura 11: Histograma de Frecuencia</em>
 </p>
+El histograma de frecuencias obtenido mediante la FFT de la señal ECG muestra que la mayor parte de la energía está concentrada en **bajas frecuencias**, con una disminución progresiva a medida que la frecuencia aumenta, lo cual es característico de señales biológicas. A partir de **50 Hz**, la magnitud se reduce notablemente, indicando que se aplicó un filtrado efectivo para eliminar interferencias de alta frecuencia. Además, no se observan picos en **50-60 Hz**, lo que confirma la eliminación del ruido de la red eléctrica y sugiere que la señal ha sido correctamente  procesada.
 
 [1] que hable de la FFT
 
