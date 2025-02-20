@@ -369,13 +369,15 @@ Para calcular la densidad espectral de potencia (PSD) en este caso usamos la fun
     <br><em>Figura 9: Densidad Espectral de Energia.</em>
 </p>
 
+De la figura anterior, correspondiente a la densidad espectral de energía observamos e inferimos que la mayor parte de la energía en la señal de ECG está en bajas frecuencias, lo cual es esperado (<50 Hz). Se observan picos menores a 10 Hz, posiblemente correspondientes a los ciclos del ECG (onda P, complejo QRS y onda T). A partir de 50 Hz, la energía cae abruptamente, lo que sugiere que el filtrado eliminó el ruido de la red eléctrica. No hay actividad relevante por encima de 100 Hz, coherente con el rango típico del ECG (0.05 - 100 Hz).
+
 <p align="center">
     <img src="densidad_es_potencia.png" 
          alt="Densidad espectral de potencia" width="800">
     <br><em>Figura 10: Densidad Espectral de Potencia.</em>
 </p>
 
-
+La potencia se concentra en bajas frecuencias y disminuye progresivamente. Hay una pendiente descendente clara hasta 50 Hz, lo que indica que la mayor parte de la energía está en frecuencias fisiológicamente relevantes. Después de 50 Hz, la densidad espectral de potencia es mucho menor, lo que sugiere que el filtrado ha reducido interferencias en altas frecuencias. No se observan picos fuertes en 50-60 Hz, lo que indica que el ruido de la red eléctrica ha sido mitigado.
 
 <p align="center">
     <img src="histograma_f.png" alt="Histograma de Frecuencia" width="800">
