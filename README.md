@@ -18,8 +18,12 @@ Las cuales son fundamentales para operar entre señal y sistema, entre señales 
 ### Parte A.
 Cada integrante debe crear un **sistema** apartir del código estudiantil y una **señal** con cada dígito de la Cédula de Ciudadania para aplicar la operación **CONVOLUCIÓN**; se realiza la gráfica secuencial, a mano y en lenguaje de **Python**.
 #### *Integrante 1* 
-![Convolucion Ana ](https://github.com/user-attachments/assets/c61496ed-73e0-4d1e-b836-6da0b15439e5)
-<br><em>Figura 1: Convolución 1 entre el sistema **h(n)** y la señal **X[n]** con su respectiva gráfica a mano .</em></p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/c61496ed-73e0-4d1e-b836-6da0b15439e5" 
+         alt="Convolucion Ana" width="500">
+    <br><em>Figura 1: Convolución 1 entre el sistema <strong>h(n)</strong> y la señal <strong>X[n]</strong> con su respectiva gráfica a mano.</em>
+</p>
+
 
 >Para programar en lenguaje de Python se utiliza la función de la libreria de Numpy que es **np.convolve([x(n),h(n)])** no importa el orden al poner los vectores dentro de la función porque la convolución es conmutativa. 
 >
@@ -38,13 +42,19 @@ plt.title("Convolución Discreta, Ana")
 plt.grid(True)
 plt.show()
 ```
-![Convolucion ana grafica](https://github.com/user-attachments/assets/5f4a8ddf-b473-40a5-b8b8-ce5e727b19af)
-<br><em>Figura 2: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 1.</em></p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/5f4a8ddf-b473-40a5-b8b8-ce5e727b19af" 
+         alt="Convolucion ana grafica" width="500">
+    <br><em>Figura 2: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 1.</em>.</em>
+</p>
 
 #### *Integrante 2* 
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/501d835b-cccb-4afb-a1f0-1b9da9383713" 
+         alt="Convolucion lu" width="500">
+    <br><em>Figura 3: Convolución 2 entre el sistema **h(n)** y la señal **X[n]** con su respectiva gráfica a mano .</em>
+</p>
 
-![Convolucion lu](https://github.com/user-attachments/assets/501d835b-cccb-4afb-a1f0-1b9da9383713)
-<br><em>Figura 3: Convolución 2 entre el sistema **h(n)** y la señal **X[n]** con su respectiva gráfica a mano .</em></p>
 ```python
 xl=np.convolve([1, 0, 5, 4, 2, 8, 2, 8, 5, 8], [5, 6, 0, 0, 6, 6, 2])#Lunay
 print(xl)
@@ -60,12 +70,20 @@ plt.title("Convolución Discreta, Luna")
 plt.grid(True)
 plt.show()
 ```
-![Grafica convolucion Lu](https://github.com/user-attachments/assets/41aa5325-09b7-4cbf-af48-dadaf824e404)
-<br><em>Figura 4: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 2.</em></p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/41aa5325-09b7-4cbf-af48-dadaf824e404" 
+         alt="Grafica convolucion Lu" width="500">
+    <br><em>Figura 4: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 2.</em>
+</p>
+
 
 #### *Integrante 3* 
-![Convolu isa](https://github.com/user-attachments/assets/9fc8bc8b-41af-4e13-b1e3-336ce0d59925)
-<br><em>Figura 5: Convolución 3 entre el sistema **h(n)** y la señal **X[n]** con su respectiva gráfica a mano .</em></p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/9fc8bc8b-41af-4e13-b1e3-336ce0d59925" 
+         alt="Convolucion isa" width="500">
+    <br><em>Figura 5: Convolución 3 entre el sistema **h(n)** y la señal **X[n]** con su respectiva gráfica a mano .</em>
+</p>
+
 
 ```python
 xi=np.convolve([1, 0, 1, 1, 0, 8, 3, 9, 5, 4], [5, 6, 0, 0, 6, 6, 7])#Isa
@@ -82,8 +100,11 @@ plt.title("Convolución Discreta, Isabela")
 plt.grid(True)
 plt.show()
 ```
-![conv  isa](https://github.com/user-attachments/assets/6fddde56-58a3-47eb-8f07-ba0ac17f905a)
-<br><em>Figura 6: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 3.</em></p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/6fddde56-58a3-47eb-8f07-ba0ac17f905a" 
+         alt="conv  isa" width="500">
+    <br><em>Figura 6: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 3.</em>
+</p>
 
 ### Parte B.
 Se debe encontrar la correlación entre $X_1[nT_s] = \cos(2\pi 100 n T_s)$ y $X_2[nT_s] = \sin(2\pi 100 n T_s)$. Luego se debe encontrar la representación gráfica y secuencial.
@@ -105,6 +126,7 @@ df1.head (10)
 ```
 Se obtiene la siguiente tabla donde se tomaron valores de 0 a 9 para *n* debido al rango estipulado inicialmente para cada función.
 
+
 |     | X1 (n/fs)| X2 (n/fs)|
 |:-------:|:-----------------:|:----------:|
 |    0    |      1.000000e+00  |   0.000000e+00   |        
@@ -118,6 +140,7 @@ Se obtiene la siguiente tabla donde se tomaron valores de 0 a 9 para *n* debido 
 |       8 |   1.000000e+00	     |   -2.449294e-16     |       
 |       9|  7.071068e-01      |      7.071068e-01  |         
 
+
 Apartir de esta tabla, se grafica las funciones de la siguiente forma: 
 
 ```python
@@ -127,9 +150,11 @@ ax.set_xlabel('X1')
 ax.set_ylabel('X2');
 ```
 Dando como resultado lo siguiente: 
-
-![grafica de x1 vs x2](grafica_x1_x2.png)
-<br><em>Figura 6: Gráfica de dispersión de **x1** vs **x2** </em></p>
+<p align="center">
+    <img src="grafica_x1_x2.png" 
+         alt="grafica de x1 vs x2" width="500">
+    <br><em>Figura 6: Gráfica de dispersión de **x1** vs **x2**.</em>
+</p>
 
 A continuación se calcula la correlación entre las señales **x1** y **x2** de la siguiente forma:
 ```python
@@ -154,25 +179,42 @@ sns.heatmap(correlacion, annot=True, cmap="coolwarm")
 # Mostrar gráfico
 plt.show()
 ```
-![correlación](correlacion.png)
-<br><em>Figura 7: Heatmap que permite observar la correlación entre **x1** y **x2** </em></p>
+<p align="center">
+    <img src="correlacion.png" 
+         alt="correlación" width="500">
+    <br><em>Figura 7: Heatmap que permite observar la correlación entre **x1** y **x2**.</em>
+</p>
+
 
 Este diagrama nos permite visualizar con mayor facilidad la relación entre **x1 y x2**, por lo que se puede observar que **X1(n/fs)** con **X1(n/fs)** es igual a *1*  lo que quiere decir que cada variable tiene correlación perfecta consigo misma. Esto también pasa en la correlación **X2(n/fs)** con **X2(n/fs)**. En cuanto a **X1(n/fs)** con **X2(n/fs)** se obtiene un resultado de *0.079* lo que muestra que la correlación es muy mínima, casi nula, esto tiene sentido debido a que **cos(x)** y **sin(x)** estan desfasados y no siguen una relación lineal clara.
 
 ### Parte C.
+<p align="center">
+    <img src="ecg.png" 
+         alt="ECG" width="800">
+    <br><em>Figura 8: Electrocardiograma.</em>
+</p>
 
-![ECG](ecg.png)
-<br><em>Figura 8: Electrocardiograma </em></p>
+
+<p align="center">
+    <img src="densidad_espectral.png" 
+         alt="Densidad espectral de energia" width="800">
+    <br><em>Figura 9: Densidad Espectral de Energia.</em>
+</p>
+
+<p align="center">
+    <img src="densidad_es_potencia.png" 
+         alt="Densidad espectral de potencia" width="800">
+    <br><em>Figura 10: Densidad Espectral de Potencia.</em>
+</p>
 
 
-![Densidad espectral de energia](densidad_espectral.png)
-<br><em>Figura 9: Densidad Espectral de Energia </em></p>
 
-![Densidad espectral de potencia](densidad_es_potencia.png)
-<br><em>Figura 10: Densidad Espectral de Potencia </em></p>
+<p align="center">
+    <img src="histograma_f.png" alt="Histograma de Frecuencia" width="800">
+    <br><em>Figura 11: Histograma de Frecuencia</em>
+</p>
 
-![Histograma de frecuencia](histograma_f.png)
-<br><em>Figura 11: Histograma de Frecuencia </em></p>
 
 
 
