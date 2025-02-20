@@ -130,22 +130,22 @@ ax.set_ylabel('X2');
 Dando como resultado lo siguiente: 
 
 ![grafica de x1 vs x2](grafica_x1_x2.png)
-<br><em>Figura 6: Gráfica de dispersión de x1 vs x2 </em></p>
+<br><em>Figura 6: Gráfica de dispersión de **x1** vs **x2** </em></p>
 
-A continuación se calcula la correlacion entre las señales x1 y x2 de la siguiente forma:
+A continuación se calcula la correlación entre las señales **x1** y **x2** de la siguiente forma:
 ```python
+#pearson
 correlacion=df1.corr()
 correlacion
-#pearson 
 ```
-Obteniedno como resultado:
+Obteniendo como resultado:
 |     | X1 (n/fs)| X2 (n/fs)|
 |:-------:|:-----------------:|:----------:|
 |    X1 (n/fs)  |     1.000000  |   0.078783  |        
 |    X2 (n/fs) |0.078783     |     1.000000  |   
 
 
-Para tener una mejor visualizacion sobre los resultados de la correlacion, se hizo el siguiente diagrama de la siguiente forma:
+Para tener una mejor visualización sobre los resultados de la correlación, se hizo el siguiente diagrama:
 
   ```python
 # Crear el heatmap
@@ -156,8 +156,8 @@ sns.heatmap(correlacion, annot=True, cmap="coolwarm")
 plt.show()
 ```
 ![correlación](correlacion.png)
-<br><em>Figura 7: Heatmap que permite observar la correlacion entre x1 y x2 </em></p>
+<br><em>Figura 7: Heatmap que permite observar la correlación entre **x1** y **x2** </em></p>
 
-Este diagrama nos permite visualizar con mayor facilidad la relación entre x1 y x2, por lo que se puede observar que X1(n/fs) con X1(n/fs) es igual a 1  lo que quiere decir que cada variable tiene correlación perfecta consigo misma. Esto también pasa en la correlación X2(n/fs) con X2(n/fs). En cuanto a X1(n/fs) con X2(n/fs) se obtiene un resultado de 0.079 lo que muestra que la correlacion es muy minima, casi nula, esto tiene sentido debido a que cos(x) y sin(x) estan desfasados yno siguen una relacion lineal clara.
+Este diagrama nos permite visualizar con mayor facilidad la relación entre **x1 y x2**, por lo que se puede observar que **X1(n/fs)** con **X1(n/fs)** es igual a *1*  lo que quiere decir que cada variable tiene correlación perfecta consigo misma. Esto también pasa en la correlación **X2(n/fs)** con **X2(n/fs)**. En cuanto a **X1(n/fs)** con **X2(n/fs)** se obtiene un resultado de *0.079* lo que muestra que la correlación es muy mínima, casi nula, esto tiene sentido debido a que **cos(x)** y **sin(x)** estan desfasados y no siguen una relación lineal clara.
 
 
