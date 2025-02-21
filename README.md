@@ -310,7 +310,7 @@ plt.show()
   
 ### 1.3 Aplicación FFT y gráficas densidad espectral potencia y energía:
 
-+  La transformada rápida de Fourier (Fast Fourier Transform) convierte la señal del dominio del tiempo al dominio de la frecuencia, descomponiéndola en sus componentes sinusoidales [1] La PSD muestra cómo la potencia de la señal está distribuida en el espectro de frecuencias[2] La ESD muestra cómo la energía total de la señal se distribuye en frecuencia [3]
++  La transformada rápida de Fourier (Fast Fourier Transform) convierte la señal del dominio del tiempo al dominio de la frecuencia, descomponiéndola en sus componentes sinusoidales [1] La PSD muestra cómo la potencia de la señal está distribuida en el espectro de frecuencias [2] La ESD muestra cómo la energía total de la señal se distribuye en frecuencia [3]
 
 +  Se muestra el código implementado para calcular lo anterior:
 
@@ -417,7 +417,13 @@ El histograma de frecuencias obtenido mediante la FFT de la señal ECG muestra q
 
 ## Referencias
 
-[1] que hable de la FFT
+[1] Transformada rápida de Fourier FFT | Academia Svantek. (2023, December 20). Svantek.
+[2] Qué es: análisis espectral. (2024, July 25). LEARN STATISTICS EASILY. https://es.statisticseasily.com/glosario/%C2%BFQu%C3%A9-es-el-an%C3%A1lisis-espectral%3F/
+[3] (N.d.). Edu.Ar. Retrieved February 21, 2025, from https://www.fceia.unr.edu.ar/tesys/html/densidad_espectral_energia_bw.pdf
+
+
+
+
 
 
 
