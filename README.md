@@ -14,8 +14,8 @@ Las cuales son fundamentales para operar entre señal y sistema, entre señales 
    + Pandas.
    + Matplotlib.
 3. Se utiliza **Jupyter NoteBook** para dividir el código en partes y trabajar en ellas sin importar el orden: escribir, probar funciones, cargar un archivo en la memoria y procesar el contenido. Con lenguaje de **Python**.
-## Procedimiento
-### Parte A.
+# Procedimiento
+## Parte A.
 Cada integrante debe crear un **sistema** apartir del código estudiantil y una **señal** con cada dígito de la Cédula de Ciudadania para aplicar la operación **CONVOLUCIÓN**; se realiza la gráfica secuencial, a mano y en lenguaje de **Python**.
 #### *Integrante 1* 
 <p align="center">
@@ -106,7 +106,7 @@ plt.show()
     <br><em>Figura 6: Gráfica Convolución Discreta **y(n)** vs **n**, integrante 3.</em>
 </p>
 
-### Parte B.
+## Parte B.
 Se debe encontrar la correlación entre $X_1[nT_s] = \cos(2\pi 100 n T_s)$ y $X_2[nT_s] = \sin(2\pi 100 n T_s)$. Luego se debe encontrar la representación gráfica y secuencial.
 
 Primero se almacena los valores en un DataFrame de la siguiente forma:
@@ -188,10 +188,10 @@ plt.show()
 
 Este diagrama nos permite visualizar con mayor facilidad la relación entre **x1 y x2**, por lo que se puede observar que **X1(n/fs)** con **X1(n/fs)** es igual a *1*  lo que quiere decir que cada variable tiene correlación perfecta consigo misma. Esto también pasa en la correlación **X2(n/fs)** con **X2(n/fs)**. En cuanto a **X1(n/fs)** con **X2(n/fs)** se obtiene un resultado de *0.079* lo que muestra que la correlación es muy mínima, casi nula, esto tiene sentido debido a que **cos(x)** y **sin(x)** estan desfasados y no siguen una relación lineal clara.
 
-### Parte C.
+## Parte C.
 En esta parte se analizará una señal electrocardiográfica (ECG) extraída del repositorio PhysioNet , específicamente de la base de datos ECG-ID Database . A continuación hablaremos de la caracterización y clasificación de la señal, así como un análisis estadístico detallado para evaluar sus propiedades tanto en el dominio del tiempo como en el dominio de la frecuencia, con modelos matemáticos como la transformada de Fourier y densidades espectrales tanto de potencia como de energía.
 
-+ #### Descripción de la señal:
+### Descripción de la señal:
 + De la base de datos se eligió el registro rec_15, que contiene 310 registros de ECG, obtenidos de 90 personas. Los datos corresponden a la derivación I del ECG, la señal se registra durante 20 segundos, digitalizada a 500 Hz con una resolución de 12 bits en un rango nominal de ±10 mV.
 + Los registros se obtuvieron de voluntarios (44 hombres y 46 mujeres de entre 13 y 75 años que eran estudiantes, colegas y amigos del autor).
 + El registro de La base de datos nos proporciona la señales sin procesar y  la filtrada de la siguiente manera:
@@ -259,7 +259,7 @@ plt.show()
     <br><em>Figura 8: Electrocardiograma.</em>
 </p>
 
-+ 1.1 Cálculo estadísticos descriptivos:
+### 1.1 Cálculo estadísticos descriptivos:
 + Se calculó la media, la desviación estándar, la varianza, el coeficiente de variación y la frecuencia de muestreo, esta última se espera que coincida con la dada en el documento.
   
   ```python
@@ -303,20 +303,22 @@ plt.show()
   f_s = 1 / T_s
   
   print(f"Frecuencia de muestreo: {f_s:.2f} Hz")
-     
-++ Resultados
+
++ ### Resultados
+  
 | Media de datos | Desviación Estandar  | Varianza | Coeficiente Variación| Frecuencia de muestreo|
 |:-------:|:-----------------:|:----------:|:-----------------:|:-----------------:|
 | 0.0012 |      0.1286     | 0.0165  |       10331.119   | 500
 
-+ 1.2 Caracterización de la señal:
+### 1.2 Caracterización de la señal:
 + La señal de ECG I filtered del registro de ECG-ID Database se puede clasificar según diferentes criterios:
 + Según su naturaleza, corresponde a una señal discreta, porque aunque el ECG es fisiológicamente contínua en el tiempo, en este caso ha sido muestreado digitalmente a 500 Hz, lo que lo convierte en una señal discreta en el dominio temporal.
 + Según el número de canales, es una señal unicanal, aunque el ECG contiene las 12 derivaciones, este registro solo contiene datos de la derivación I
 + Según el procesamiento de la seña, el registro contiene la señal sin filtrar como filtrada.
   
-+  1.3 Aplicación FFT y gráficas densidad espectral potencia y energía:
-+  La FFT (Fast Fourier Transform) convierte la señal del dominio del tiempo al dominio de la frecuencia, descomponiéndola en sus componentes sinusoidales [1] La PSD muestra cómo la potencia de la señal está distribuida en el espectro de frecuencias[2] La ESD muestra cómo la energía total de la señal se distribuye en frecuencia [3]
+### 1.3 Aplicación FFT y gráficas densidad espectral potencia y energía:
+
++  La transformada rápida de Fourier (Fast Fourier Transform) convierte la señal del dominio del tiempo al dominio de la frecuencia, descomponiéndola en sus componentes sinusoidales [1] La PSD muestra cómo la potencia de la señal está distribuida en el espectro de frecuencias[2] La ESD muestra cómo la energía total de la señal se distribuye en frecuencia [3]
 
 +  Se muestra el código implementado para calcular lo anterior:
   
@@ -384,7 +386,7 @@ A partir de 50 Hz, la densidad espectral de potencia es mucho menor, lo que sugi
     <img src="histograma_f.png" alt="Histograma de Frecuencia" width="800">
     <br><em>Figura 11: Histograma de Frecuencia</em>
 </p>
-El histograma de frecuencias obtenido mediante la FFT de la señal ECG muestra que la mayor parte de la energía está concentrada en **bajas frecuencias**, con una disminución progresiva a medida que la frecuencia aumenta, lo cual es característico de señales biológicas. A partir de **50 Hz**, la magnitud se reduce notablemente, indicando que se aplicó un filtrado efectivo para eliminar interferencias de alta frecuencia. Además, no se observan picos en **50-60 Hz**, lo que confirma la eliminación del ruido de la red eléctrica y sugiere que la señal ha sido correctamente  procesada.
+El histograma de frecuencias obtenido mediante la FFT de la señal ECG muestra que la mayor parte de la energía está concentrada en bajas frecuencias, con una disminución progresiva a medida que la frecuencia aumenta, lo cual es característico de señales biológicas. A partir de 50 Hz, la magnitud se reduce notablemente, indicando que se aplicó un filtrado efectivo para eliminar interferencias de alta frecuencia. Además, no se observan picos en 50-60 Hz, lo que confirma la eliminación del ruido de la red eléctrica y sugiere que la señal ha sido correctamente  procesada.
 
 [1] que hable de la FFT
 
