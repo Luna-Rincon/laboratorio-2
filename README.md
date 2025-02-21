@@ -260,7 +260,7 @@ plt.show()
 </p>
 
 ### 1.1 Cálculo estadísticos descriptivos:
-+ Se calculó la media, la desviación estándar, la varianza, el coeficiente de variación y la frecuencia de muestreo, esta última se espera que coincida con la dada en el documento.
++ Se calculó la media, la desviación estándar, la varianza, el coeficiente de variación y la frecuencia de muestreo, esta última se espera que coincida con la dada en el documento. En el código se desarrolla de manera automatizada (con funciones propias de Python) y con la lógica de programación, a continuación mostraremos el cálculo automatizado de los estadísticos:
   
   ```python
    #CALCULO DE # DE MUESTRAS - PROMEDIO - DESVIACIÓN ESTÁNDAR - VALOR MÍNIMO - CUARTILES - VALOR MÁXIMO
@@ -269,32 +269,23 @@ plt.show()
   np.mean(df_rt['ECG I filtered'])
   #DESVIACIÓN ESTÁNDAR
   np.std(df_rt['ECG I filtered'])
-  #CÁLCULO DE MEDIA CON FOR
-  suma_total=0
-  media=0
-  for c in df_rt['ECG I filtered']:
-      suma_total +=c
-  media=suma_total/len(df_rt['ECG I filtered'])
+  #CÁLCULO PARA DESVIACIÓN ESTÁNDAR
+
+  # Cálculo de las diferencias cuadradas
+  diferencia = [(x - media) ** 2 for x in df_rt['ECG I filtered']]
   
-  print("Media= " +str(media)) #STR ES PARA CONVERTIR A STRING
-  #CÁLCULO DE MEDIA CON FOR
-  suma_total=0
-  media=0
-  for c in df_rt['ECG I filtered']:
-      suma_total +=c
-  media=suma_total/len(df_rt['ECG I filtered'])
+  # Sumar las diferencias cuadradas
+  sumatoria_diferencia = sum(diferencia)
   
-  print("Media= " +str(media)) #STR ES PARA CONVERTIR A STRING
-  #CÁLCULO DE MEDIA CON FOR
-  suma_total=0
-  media=0
-  for c in df_rt['ECG I filtered']:
-      suma_total +=c
-  media=suma_total/len(df_rt['ECG I filtered'])
+  # Calcular la varianza (muestral)
+  varianza = sumatoria_diferencia / (len(df_rt['ECG I filtered']) - 1)
   
-  print("Media= " +str(media)) #STR ES PARA CONVERTIR A STRING
-  #  Frecuencia de muestreo
-  tiempo = df_rt["Tiempo (s)"].values
+  # Calcular la desviación estándar
+  desviacion = varianza ** 0.5
+  
+  # Mostrar resultados
+  print("Varianza: " + str(varianza))
+  print("Desviación estándar: " + str(desviacion))
   
   # Calcular el intervalo de muestreo (suponiendo tiempo uniformemente espaciado)
   T_s = np.mean(np.diff(tiempo))  # Diferencia entre muestras consecutivas
@@ -303,6 +294,7 @@ plt.show()
   f_s = 1 / T_s
   
   print(f"Frecuencia de muestreo: {f_s:.2f} Hz")
+  ```
 
 + ### Resultados
   
@@ -321,7 +313,8 @@ plt.show()
 +  La transformada rápida de Fourier (Fast Fourier Transform) convierte la señal del dominio del tiempo al dominio de la frecuencia, descomponiéndola en sus componentes sinusoidales [1] La PSD muestra cómo la potencia de la señal está distribuida en el espectro de frecuencias[2] La ESD muestra cómo la energía total de la señal se distribuye en frecuencia [3]
 
 +  Se muestra el código implementado para calcular lo anterior:
-  
+
+### FFT
   ```python
 # 1. Calcular la Transformada de Fourier (FFT)
 # Obtener la señal ECG filtrada
@@ -329,15 +322,19 @@ ecg = df_rt["ECG I filtered"].values
 Fs = 500 #frecuencia de muestreo dada en el documento
 # Calcular la FFT
 n = len(ecg)  # Número de puntos de la señal
-frecuencias = np.fft.fftfreq(n, 1/Fs)  # Frecuencias correspondientes 1/Fs =Ts
+frecuencias = np.fft.fftfreq(n, 1/Fs)  # Frecuencias correspondientes 1/Fs =Ts, vector de frecuencias
 valfft = np.fft.fft(ecg)  # Valores de la FFT Devuelve un array de valores complejos que representan las componentes de frecuencia.
 
 # Solo nos interesan las frecuencias positivasf
 frecu_p = frecuencias[:n // 2] #frecp coeficientes de frecuencia positivos
 fft_positivo = 2.0/n * np.abs(valfft[:n // 2]) #elimina la parte imaginaria y normaliza los valores de la FFT
+```
 
+Al calcular la FFT de la señal ECG, obtenemos un espectro simétrico con frecuencias positivas y negativas. Como solo nos interesan las positivas, tomamos la primera mitad de los valores. Sin embargo, esto reduce la energía total, por lo que multiplicamos por `2.0/n` para corregir la amplitud y reflejar correctamente la contribución de cada frecuencia en la señal original.
 
-# Graficar la Densidad Espectral de Energía (ESD)
+### Densidad espectral de energía (EDS)
+  ```python
+# Graficar la densidad espectral de energía (ESD)
 plt.figure(figsize=(17, 10))
 plt.plot(frecu_p, fft_positivo**2, label="Densidad Espectral de Energía (ESD)", color="blue")
 plt.title("Densidad Espectral de Energía (ESD) de la señal ECG filtrada", fontsize=16)
@@ -346,10 +343,21 @@ plt.ylabel("Energía (mV²)", fontsize=14)
 plt.grid(True, linestyle="--", alpha=0.7)
 plt.legend(fontsize=12)
 plt.show()
+```
+Se grafica la densidad, en el eje las frecuencias positivas, y en el eje x la transformada de Fourier normalizada elevada al cuadrado, que corresponde a la fórmula de la ESD, que indica cuánta energía hay en cada frecuencia.
 
+<p align="center">
+    <img src="densidad_espectral.png" 
+         alt="Densidad espectral de energia" width="800">
+    <br><em>Figura 9: Densidad Espectral de Energia.</em>
+</p>
 
-# Calcular la Densidad Espectral de Potencia (PSD) usando el método de Welch
-frec_PSD, val_PSD = welch(ecg, fs=Fs, nperseg=1024)
+Como se observa en la figura 9 correspondiente a la densidad espectral de energía, observamos e inferimos que la mayor parte de la energía en la señal de ECG está en bajas frecuencias (menores a 50Hz), lo cual es lo esperado ya que la actividad eléctrica del corazón ocurre en este rango. Se observan picos menores a 10 Hz, posiblemente correspondientes a los ciclos del ECG (onda P, complejo QRS y onda T). A partir de 50 Hz, la energía disminuye rápidamente, lo que indica que se aplicó un filtro para eliminar el ruido de la red eléctrica, que en Colombia está en los 60 Hz. Como era esperado por el rango típico de frecuencias del ECG (0,05 - 100 Hz) no hay actividad significativa por encima de 100 Hz.
+
+### Densidad espectral de potencia (PSD)
+ ```python
+# Calcular la densidad espectral de potencia (PSD) usando el método de Welch
+frec_PSD, val_PSD = welch(ecg, fs=Fs, nperseg=1024) #nperseg=1024: Divide la señal en segmentos de 1024 muestras para promediar y reducir la varianza.
 
 # 4. Graficar la Densidad Espectral de Potencia (PSD)
 plt.figure(figsize=(17, 10))
@@ -360,17 +368,10 @@ plt.ylabel("Potencia/Frecuencia (mV²/Hz)", fontsize=14)
 plt.grid(True, linestyle="--", alpha=0.7)
 plt.legend(fontsize=12)
 plt.show()
-
 ```
-La densidad espectral de potencia (PSD) se calcula utilizando el método de Welch, el cual permite obtener una estimación más precisa y con menor ruido en comparación con el enfoque tradicional basado en la transformada de Fourier. Para ello, se emplea la función welch con la librería scipy.signal [4]. Este método consiste en dividir la señal en segmentos superpuestos, aplicar la transformada rápida de Fourier (FFT) a cada segmento y luego promediar los espectros de potencia obtenidos. Al reducir la variación de la estimación, este proceso proporciona una representación más suave.
+Utilizamos el método de Welch para calcular la PSD, el cual permite obtener una estimación más precisa y con menor ruido en comparación con el enfoque tradicional basado en la transformada de Fourier. Para ello, se emplea la función welch con la librería scipy.signal [4]. Este método consiste en dividir la señal en segmentos superpuestos, aplicar la transformada rápida de Fourier (FFT) a cada segmento y luego promediar los espectros de potencia obtenidos. Es decir, se calculan nuevas frecuencias para la PSD y así mismo el valor de cada potencia para cada frecuencia. En general, se divide la señal en segmentos de 1024 muestras (nperseg=1024), se aplica la transformada de Fourier de cada segmento y por último promedia los resultados para obtener la PSD.
 
-<p align="center">
-    <img src="densidad_espectral.png" 
-         alt="Densidad espectral de energia" width="800">
-    <br><em>Figura 9: Densidad Espectral de Energia.</em>
-</p>
-
-De la figura anterior, correspondiente a la densidad espectral de energía observamos e inferimos que la mayor parte de la energía en la señal de ECG está en bajas frecuencias, lo cual es esperado (<50 Hz). lo cual es normal, ya que la actividad eléctrica del corazón ocurre en este rango. Se observan picos menores a 10 Hz, posiblemente correspondientes a los ciclos del ECG (onda P, complejo QRS y onda T). A partir de 50 Hz, la energía disminuye rápidamente, lo que indica que se aplicó un filtro para eliminar el ruido de la red eléctrica (que suele estar en 50 o 60 Hz). Además, no hay actividad significativa por encima de 100 Hz, lo que es consistente con el rango típico de frecuencias del ECG (0,05 - 100 Hz).
+Para graficar la señal se usa plt.semilogy para obtener en escala logarítmica en el eje 'y', esto es útil para visualizar la PSD, ya que los valores pueden variar en varios órdenes de magnitud. 
 
 <p align="center">
     <img src="densidad_es_potencia.png" 
@@ -380,13 +381,41 @@ De la figura anterior, correspondiente a la densidad espectral de energía obser
 
 La potencia de la señal ECG se concentra en bajas frecuencias y disminuye progresivamente. Se observa una pendiente descendente clara hasta 50 Hz, lo que indica que la mayor parte de la energía se encuentra en frecuencias fisiológicamente relevantes, asociadas con las distintas ondas del ECG, como la onda P, el complejo QRS y la onda T.  
 
-A partir de 50 Hz, la densidad espectral de potencia es mucho menor, lo que sugiere que el filtrado ha reducido interferencias en altas frecuencias. Además, no se observan picos fuertes en el rango de 50-60 Hz, lo que confirma que el ruido de la red eléctrica ha sido mitigado de manera efectiva. Más allá de 100 Hz, la energía es prácticamente despreciable, lo que indica que el ECG ha sido correctamente procesado y no hay información relevante en estas frecuencias.
+A partir de 50 Hz, la densidad espectral de potencia es mucho menor, lo que sugiere que el filtrado ha reducido interferencias en altas frecuencias. Además, no se observan picos fuertes en el 60Hz lo que confirma que el ruido de la red eléctrica ha sido mitigado de manera efectiva. Más allá de 100 Hz, la energía es prácticamente despreciable, lo que indica que el ECG ha sido correctamente procesado y no hay información relevante en estas frecuencias.
+
+### Estadísticos descriptivos frecuencia
+Tal como calculamos los estadísticos descriptivos de la señal en el dominio del tiempo, los calcularemos con las frecuencias para posteriormente graficarlo.
+
+ ```python
+# 1. Obtener las frecuencias y los valores de la FFT
+frecu_p = frequencies[:n // 2]  # Frecuencias positivas
+fft_positivo = 2.0/n * np.abs(fft_values[:n // 2])  # Magnitudes de la FFT
+
+# 2. Calcular los estadísticos
+
+# Frecuencia media
+media_frec = np.sum(frecu_p * fft_positivo) / np.sum(fft_positivo)
+
+# Frecuencia mediana
+suma = np.cumsum(fft_positivo)  # Suma acumulada de las magnitudes de la FFT
+xm = np.where(cumulative_sum >= cumulative_sum[-1] / 2)[0][0] # Índice donde se alcanza la mitad de la energía
+mediana_frec = frecu_p[xm]  # Frecuencia correspondiente al índice
+
+# Desviación estándar de la frecuencia
+desviacion_frec = np.sqrt(np.sum(fft_positivo * (frecu_p - media_frec)**2) / np.sum(fft_positivo))
+
+print(f"Frecuencia media: {media_frec:.2f} Hz")
+print(f"Frecuencia mediana: {mediana_frec:.2f} Hz")
+print(f"Desviación estándar de la frecuencia: {desviacion_frec:.2f} Hz")
+ ```
+El histograma de frecuencias obtenido mediante la FFT de la señal ECG muestra que la mayor parte de la energía está concentrada en bajas frecuencias, con una disminución progresiva a medida que la frecuencia aumenta, lo cual es característico de señales biológicas. A partir de 50 Hz, la magnitud se reduce notablemente, indicando que se aplicó un filtrado efectivo para eliminar interferencias de alta frecuencia. Además, no se observan picos en 60Hz, lo que confirma la eliminación del ruido de la red eléctrica y sugiere que la señal ha sido correctamente  procesada.
 
 <p align="center">
     <img src="histograma_f.png" alt="Histograma de Frecuencia" width="800">
     <br><em>Figura 11: Histograma de Frecuencia</em>
 </p>
-El histograma de frecuencias obtenido mediante la FFT de la señal ECG muestra que la mayor parte de la energía está concentrada en bajas frecuencias, con una disminución progresiva a medida que la frecuencia aumenta, lo cual es característico de señales biológicas. A partir de 50 Hz, la magnitud se reduce notablemente, indicando que se aplicó un filtrado efectivo para eliminar interferencias de alta frecuencia. Además, no se observan picos en 50-60 Hz, lo que confirma la eliminación del ruido de la red eléctrica y sugiere que la señal ha sido correctamente  procesada.
+
+## Referencias
 
 [1] que hable de la FFT
 
